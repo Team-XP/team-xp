@@ -1,6 +1,5 @@
 import {
   Controller,
-  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -8,9 +7,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { IsPublic } from './decorators/is-public.decorator';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthRequest } from './models/auth-request';
-import { IsPublic } from './decorators/is-public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -22,10 +21,5 @@ export class AuthController {
   @Post('login')
   async login(@Request() req: AuthRequest) {
     return this.authService.login(req.user);
-  }
-
-  @Get('profile')
-  getProfile(@Request() req: AuthRequest) {
-    return req.user;
   }
 }
